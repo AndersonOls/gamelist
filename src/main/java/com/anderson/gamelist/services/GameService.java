@@ -3,7 +3,6 @@ package com.anderson.gamelist.services;
 import com.anderson.gamelist.dto.GameMinDTO;
 import com.anderson.gamelist.entities.Game;
 import com.anderson.gamelist.repositories.GameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
