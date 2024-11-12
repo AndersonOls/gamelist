@@ -2,6 +2,7 @@ package com.anderson.gamelist.services;
 
 import com.anderson.gamelist.dto.GameMinDTO;
 import com.anderson.gamelist.entities.Game;
+import com.anderson.gamelist.exceptions.GameNotFoundException;
 import com.anderson.gamelist.repositories.GameRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class GameService {
 
     public List<GameMinDTO> findAll() {
         List<Game> games = repository.findAll();
+        if (games.isEmpty()) {
+            throw new GameNotFoundException("There are no games in the database");
+        }
         return games.stream()
                 .map(game -> new GameMinDTO(
                         game.getId(),
