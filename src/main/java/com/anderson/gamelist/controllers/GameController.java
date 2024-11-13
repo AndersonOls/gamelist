@@ -28,7 +28,7 @@ public class GameController {
 
     @GetMapping
     public ResponseEntity<List<GameMinDTO>> getAllGames() {
-        List<GameMinDTO> games = service.findAllGames();
+        List<GameMinDTO> games = service.getAllGames();
         return ResponseEntity.ok(games);
     }
 }

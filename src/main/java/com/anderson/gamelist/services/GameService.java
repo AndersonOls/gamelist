@@ -4,6 +4,7 @@ import com.anderson.gamelist.dto.GameFullDTO;
 import com.anderson.gamelist.dto.GameMinDTO;
 import com.anderson.gamelist.entities.Game;
 import com.anderson.gamelist.exceptions.GameNotFoundException;
+import com.anderson.gamelist.projections.GameMinProjection;
 import com.anderson.gamelist.repositories.GameRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,20 +28,17 @@ public class GameService {
         return GameFullDTO.fromEntity(game);
     }
 
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> getAllGames() {
+        List<Game> games = repository.findAll();
+        return games.stream().map(GameMinDTO::new).toList();
+    }
 
     @Transactional(readOnly = true)
-    public List<GameMinDTO> findAllGames() {
-        List<Game> games = repository.findAll();
-        if (games.isEmpty()) {
-            throw new GameNotFoundException("There are no games in the database");
-        }
-        return games.stream()
-                .map(game -> new GameMinDTO(
-                        game.getId(),
-                        game.getTitle(),
-                        game.getYear(),
-                        game.getImgUrl(),
-                        game.getShortDescription()))
-                .collect(Collectors.toList());
+    public List<GameMinDTO> getAllGamesByList(Long listId) {
+        List<GameMinProjection> games = repository.searchByList(listId);
+        return games.stream().map(GameMinDTO::new).toList();
     }
+
+
 }
