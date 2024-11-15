@@ -82,19 +82,8 @@
         <profile>
             <id>prod</id>
             <activation>
-                <property>
-                    <name>env</name>
-                    <value>prod</value>
-                </property>
+                <activeByDefault>false</activeByDefault>
             </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
             </properties>

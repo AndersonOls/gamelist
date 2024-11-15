@@ -2,13 +2,11 @@ package com.anderson.gamelist.controllers;
 
 import com.anderson.gamelist.dto.GameListDTO;
 import com.anderson.gamelist.dto.GameMinDTO;
+import com.anderson.gamelist.dto.ReplacementDTO;
 import com.anderson.gamelist.services.GameListService;
 import com.anderson.gamelist.services.GameService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +32,11 @@ public class GameListController {
     public ResponseEntity<List<GameMinDTO>> getAllGamesByList(@PathVariable Long listId) {
         List<GameMinDTO> games = gameService.getAllGamesByList(listId);
         return ResponseEntity.ok(games);
+    }
+
+    @PostMapping(value = "/{listId}/replacement")
+    public void move(@PathVariable Long listId, @RequestBody ReplacementDTO body) {
+        service.move(listId, body.sourceIndex(), body.destinationIndex());
     }
 
 }
