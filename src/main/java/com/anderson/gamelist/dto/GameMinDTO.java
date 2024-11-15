@@ -2,13 +2,16 @@ package com.anderson.gamelist.dto;
 
 import com.anderson.gamelist.entities.Game;
 import com.anderson.gamelist.projections.GameMinProjection;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record GameMinDTO(
         Long id,
         String title,
         Integer year,
         String imgUrl,
-        String shortDescription) {
+        String shortDescription,
+        Integer position) {
 
     public GameMinDTO(Game entity) {
         this(
@@ -16,7 +19,8 @@ public record GameMinDTO(
                 entity.getTitle(),
                 entity.getYear(),
                 entity.getImgUrl(),
-                entity.getShortDescription()
+                entity.getShortDescription(),
+                null
         );
     }
 
@@ -26,7 +30,8 @@ public record GameMinDTO(
                 projection.getTitle(),
                 projection.getYear(),
                 projection.getImgUrl(),
-                projection.getShortDescription()
+                projection.getShortDescription(),
+                projection.getPosition()
         );
     }
 }
